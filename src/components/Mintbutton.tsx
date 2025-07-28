@@ -387,7 +387,7 @@ export default function MintButton() {
         )}
       </button>
 
-      <div className="fixed bottom-4 right-4 w-full max-w-sm z-50 space-y-2 p-4">
+      <div className="fixed bottom-8 right-4 w-full max-w-sm z-50 space-y-2 p-4">
         {notifications.map(toast => (
           <Notification
             link={toast.link}
