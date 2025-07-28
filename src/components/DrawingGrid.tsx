@@ -1,9 +1,8 @@
 "use client";
 
-// import { HoverHighlighter } from "react-together";
 import { GRID_HEIGHT, GRID_WIDTH } from "../lib/constant";
 import { useWeb3Context } from "@/context/Web3Context";
-import HoverHighlighter from "./Hover";
+import HoverHighlighter from "@/components/Hover";
 
 export default function DrawingGrid() {
   const { gameGrid, myColor, isEraseMode, artRef, clickSound, setGameGrid } =
@@ -12,10 +11,18 @@ export default function DrawingGrid() {
   const handleCellClick = (index: number) => {
     if (clickSound.current) clickSound.current.play();
 
+    // Ensure gameGrid is always an array
+    const currentGrid = Array.isArray(gameGrid)
+      ? gameGrid
+      : Array(GRID_WIDTH * GRID_HEIGHT).fill(null);
+
     if (isEraseMode) {
-      if (gameGrid[index] === myColor) {
+      if (currentGrid[index] === myColor) {
         setGameGrid(prev => {
-          const newGrid = [...prev];
+          const safeGrid = Array.isArray(prev)
+            ? prev
+            : Array(GRID_WIDTH * GRID_HEIGHT).fill(null);
+          const newGrid = [...safeGrid];
           newGrid[index] = null;
           return newGrid;
         });
@@ -23,9 +30,12 @@ export default function DrawingGrid() {
     } else {
       if (!myColor) return;
 
-      if (gameGrid[index] === null || !gameGrid[index]) {
+      if (currentGrid[index] === null || !currentGrid[index]) {
         setGameGrid(prev => {
-          const newGrid = [...prev];
+          const safeGrid = Array.isArray(prev)
+            ? prev
+            : Array(GRID_WIDTH * GRID_HEIGHT).fill(null);
+          const newGrid = [...safeGrid];
           newGrid[index] = myColor;
           return newGrid;
         });

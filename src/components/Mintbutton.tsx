@@ -3,11 +3,17 @@
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useWeb3Context } from "@/context/Web3Context";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import { useScreenshot } from "use-react-screenshot";
 import { NFT_CONTRACT_ABI } from "@/utils/abi";
 import { pinataAction } from "@/actions/pinataAction";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useToast } from "@/hooks/useToast";
+import Notification from "./ui/toast";
 
 type MintState =
   | "idle"
@@ -56,6 +62,9 @@ export default function MintButton() {
     hash,
     query: { enabled: !!hash },
   });
+  const { chain } = useAccount();
+
+  const { notifications, success, removeToast } = useToast();
 
   const isAnyLoading =
     isUploading || isMintPending || isTxLoading || mintState === "screenshot";
@@ -206,13 +215,25 @@ export default function MintButton() {
     }
 
     // Handle mint completion
-    if (isMintComplete && mintState !== "success") {
+    if (isMintComplete && mintState !== "success" && hash) {
       setMintState("success");
+
       setShowMintAgain(false);
       retryCountRef.current = 0;
       console.log("✅ Successfully minted!", hash);
       setUploadStatus("✅ Successfully Minted! 🎉");
       setIsUploading(false);
+
+      const explorerUrl = chain?.blockExplorers?.default?.url;
+
+      if (explorerUrl) {
+        success(
+          "NFT Minted Successfully!",
+          "View on Explorer",
+          `${chain.blockExplorers?.default.url}/tx/${hash}`,
+          10000
+        );
+      }
 
       const timer = setTimeout(() => {
         setShowMintAgain(true);
@@ -247,6 +268,8 @@ export default function MintButton() {
     uploadToIPFS,
     setIsUploading,
     setUploadStatus,
+    success,
+    chain?.blockExplorers?.default.url,
   ]);
 
   const getButtonConfig = () => {
@@ -363,6 +386,17 @@ export default function MintButton() {
           </span>
         )}
       </button>
+
+      <div className="fixed bottom-4 right-4 w-full max-w-sm z-50 space-y-2 p-4">
+        {notifications.map(toast => (
+          <Notification
+            link={toast.link}
+            key={toast.id}
+            {...toast}
+            onClose={() => removeToast(toast.id)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

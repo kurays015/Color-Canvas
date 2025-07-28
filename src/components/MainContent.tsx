@@ -2,7 +2,6 @@
 
 import CanvasHeader from "@/components/CanvasHeader";
 import DrawingGrid from "@/components/DrawingGrid";
-import Hash from "@/components/Hash";
 import Instructions from "@/components/Instructions";
 import MintButton from "@/components/Mintbutton";
 import ShareLink from "@/components/ShareLink";
@@ -29,13 +28,12 @@ export default function MainContent() {
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-6 sm:py-8 z-10">
+    <div className="">
       <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         <CanvasHeader />
         <DrawingGrid />
         <MintButton />
         <Status />
-        <Hash />
         <ShareLink />
         <Instructions />
       </div>
