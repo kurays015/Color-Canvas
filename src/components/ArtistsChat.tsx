@@ -8,7 +8,7 @@ export default function ArtistsChat() {
   return (
     <>
       {joinUrl ? (
-        <div className="fixed bottom-0 right-0 text-black">
+        <div className="fixed bottom-0 right-0 text-black z-50">
           <Chat
             hideWhenDisconnected={true}
             rtKey="colorcanvas"
