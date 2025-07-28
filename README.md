@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎨 Collaborative Color Canvas
 
-## Getting Started
+A real-time multiplayer drawing application that enables users to collaborate on a shared pixel canvas. Paint together, create art, and watch as your collaborative masterpiece comes to life in real-time!
 
-First, run the development server:
+![Canvas Preview](/public/app.png)
+
+## ✨ Features
+
+- **Real-time Collaborative Art Creation**: Built with React-Together for seamless multi-user drawing experiences
+- **Blockchain Integration**: Mint your collaborative artwork as NFTs on the Monad blockchain
+- **Pixel Perfect**: Grid-based drawing system for precise pixel art creation
+- **Artists Chat**: Chat while making an art
+- **Live User Tracking**: See who's currently connected and collaborating
+- **Erase Mode**: Remove pixels with the dedicated erase tool
+- **Clear Canvas**: Reset the entire canvas for fresh starts
+- **Session Management**: Easy join/leave functionality
+- **Wallet Integration**: Connect your wallet to mint and own your collaborative creations
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/Color-Canvas.git
+cd Color-Canvas
+```
+
+2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open your browser and navigate to `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎮 How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Connect**: Click "Connect Wallet" to join the session
+2. **Select Color**: Choose your unique color from the color picker
+3. **Start Drawing**: Click any square on the grid to paint with your color
+4. **Erase**: Toggle erase mode to remove pixels
+5. **Collaborate**: Watch as other users draw in real-time using React-Together
+6. **Clear All**: Use the clear button to reset the entire canvas
+7. **Mint Your Art**: Once satisfied with your collaborative creation, mint it as an NFT on Monad blockchain
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Start creating collaborative pixel art today! 🎨✨**
