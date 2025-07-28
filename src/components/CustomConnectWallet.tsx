@@ -1,0 +1,119 @@
+"use client";
+
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
+import { useJoinUrl } from "react-together";
+
+export default function CustomConnectWallet() {
+  const joinUrl = useJoinUrl();
+
+  return (
+    <>
+      {joinUrl && (
+        <div className="absolute max-sm:top-2 max-sm:right-2 sm:right-10 sm:top-6 z-50">
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              const ready = mounted && authenticationStatus !== "loading";
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus ||
+                  authenticationStatus === "authenticated");
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button
+                          className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-[4px] min-w-[90px] transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-8 px-3 py-[4px] rounded-[100px] text-[12px] leading-[20px] font-[500] w-fit z-10 mt-auto sm:h-10 sm:px-4 sm:py-[6px] sm:text-[14px] sm:leading-[24px] sm:min-w-[105px] cursor-pointer"
+                          onClick={openConnectModal}
+                        >
+                          Connect Wallet
+                        </button>
+                      );
+                    }
+                    if (chain.unsupported) {
+                      return (
+                        <button
+                          className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-[4px] min-w-[90px] transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-8 px-3 py-[4px] rounded-[100px] text-[12px] leading-[20px] font-[500] w-fit z-10 mt-auto sm:h-10 sm:px-4 sm:py-[6px] sm:text-[14px] sm:leading-[24px] sm:min-w-[105px]"
+                          onClick={openChainModal}
+                        >
+                          Wrong network
+                        </button>
+                      );
+                    }
+                    return (
+                      <div className="flex items-center customSm:flex-col  gap-2 customSemiMd:flex-row sm:gap-3">
+                        <button
+                          className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-[4px] min-w-[90px] transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-8 px-3 py-[4px] rounded-[100px] text-[12px] leading-[20px] font-[500] w-fit z-10 mt-auto sm:h-10 sm:px-4 sm:py-[6px] sm:text-[14px] sm:leading-[24px] sm:min-w-[105px]"
+                          onClick={openChainModal}
+                        >
+                          {chain.hasIcon && (
+                            <div
+                              className="mr-1 sm:mr-2"
+                              style={{
+                                background: chain.iconBackground,
+                                width: 10,
+                                height: 10,
+                                borderRadius: 999,
+                                overflow: "hidden",
+                              }}
+                            >
+                              {chain.iconUrl && (
+                                <Image
+                                  alt={chain.name ?? "Chain icon"}
+                                  src={chain.iconUrl}
+                                  width={10}
+                                  height={10}
+                                />
+                              )}
+                            </div>
+                          )}
+                          {chain.name}
+                        </button>
+                        <button
+                          className="inline-flex items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-[4px] min-w-[90px] transition-all duration-350 ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; bg-[#6E54FF] text-white shadow-[0px_1px_0.5px_0px_rgba(255,255,255,0.33)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] hover:bg-[#836EF9] hover:shadow-[0px_1px_1px_0px_rgba(255,255,255,0.12)_inset,0px_1px_2px_0px_rgba(26,19,161,0.50),0px_0px_0px_1px_#4F47EB] h-8 px-3 py-[4px] rounded-[100px] text-[12px] leading-[20px] font-[500] w-fit z-10 mt-auto sm:h-10 sm:px-4 sm:py-[6px] sm:text-[14px] sm:leading-[24px] sm:min-w-[105px]"
+                          onClick={openAccountModal}
+                        >
+                          <span
+                            className="truncate max-w-[80px] sm:max-w-[100px]"
+                            title={account.displayName}
+                          >
+                            {account.displayName}
+                          </span>
+                          {account.displayBalance && (
+                            <span className="hidden sm:inline">
+                              {` (${account.displayBalance})`}
+                            </span>
+                          )}
+                        </button>
+                      </div>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
+        </div>
+      )}
+    </>
+  );
+}
