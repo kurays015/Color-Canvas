@@ -6,7 +6,7 @@ import CustomConnectWallet from "@/components/CustomConnectWallet";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-violet-950 to-purple-950 overflow-hidden relative pt-10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-violet-950 to-purple-950 overflow-hidden relative">
       <CustomConnectWallet />
       <BackgroundEffects />
       <ClickSound />
