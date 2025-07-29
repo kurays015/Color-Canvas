@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { ReactTogether } from "react-together";
+import { Cursors, ReactTogether } from "react-together";
 
 export default function ReactTogetherProvider({
   children,
@@ -16,9 +16,10 @@ export default function ReactTogetherProvider({
         // name: "asd0",
         // password: "123",
       }}
-      rememberUsers={true}
+      // rememberUsers={true}
     >
       {children}
+      <Cursors />
     </ReactTogether>
   );
 }

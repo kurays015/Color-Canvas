@@ -2,7 +2,6 @@
 
 import { GRID_HEIGHT, GRID_WIDTH } from "../lib/constant";
 import { useWeb3Context } from "@/context/Web3Context";
-import HoverHighlighter from "@/components/Hover";
 
 export default function DrawingGrid() {
   const { gameGrid, myColor, isEraseMode, artRef, clickSound, setGameGrid } =
@@ -64,7 +63,8 @@ export default function DrawingGrid() {
             }}
           >
             {gameGrid.map((cellColor, index) => (
-              <HoverHighlighter rtKey={`cell-${index}`} key={index}>
+              // <HoverHighlighter rtKey={`cell-${index}`} key={index}>
+              <div key={index}>
                 <button
                   onClick={() => handleCellClick(index)}
                   className={`w-full h-full transition-all duration-200 relative ${
@@ -103,7 +103,8 @@ export default function DrawingGrid() {
                     />
                   )}
                 </button>
-              </HoverHighlighter>
+              </div>
+              // </HoverHighlighter>
             ))}
           </div>
         </div>
